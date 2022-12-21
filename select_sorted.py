@@ -68,5 +68,3 @@ def select_sorted(sort_columns, limit, group_by_name, order, filename):
         f.close()
         file_.close()
 
-
-get_sorted()

@@ -36,5 +36,3 @@ def get_by_date(date="2017-08-08", name="PCLN", filename='dump.csv'):
 
     return top10, f.close()
 
-
-get_banch()

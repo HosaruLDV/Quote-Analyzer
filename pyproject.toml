@@ -8,6 +8,9 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.9"
 
+[tool.poetry.scripts]
+get-sorted = "select_sorted:get_sorted"
+get-banch = "main:get_banch"
 
 [build-system]
 requires = ["poetry-core"]
