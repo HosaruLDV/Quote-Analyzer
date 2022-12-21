@@ -2,17 +2,34 @@ import csv
 import os
 
 
+def get_sorted():
+    dd = {1: "open", 3: "high", 4: "low", 2: "close", 5: "volume"}
+    s_c = dd[int(input("""
+Сортировать по цене 
+открытия (1)
+закрытия (2)
+максимум [3]
+минимум (4)
+объем (5)
+"""))]
+    limit = int(input("Ограничение выборки [10]"))
+    group_by_name = False
+    order = input("Порядок по убыванию [1] / возрастанию (2)")
+    filename = input(str("Название файла для сохранения результата [dump.csv]"))
+
+    return select_sorted(s_c, limit, group_by_name, order, filename)
+
 def select_sorted(sort_columns="high", limit=30, group_by_name=False, order='desc', filename='dump.csv'):
-    cache_name = "".join(sort_columns) + "".join(str(limit)) + "".join(filename) +"".join(order)
-    ll =""
-    s_c = "".join(sort_columns)
+    cache_name = "".join(str(sort_columns)) + "".join(str(limit)) + "".join(str(filename)) + "".join(str(order))
+    s_c = str(sort_columns)
     f_n = "".join(filename)
 
     if os.path.exists(f'cache/{cache_name}.csv'):
         with open(f'cache/{cache_name}.csv') as cache_file:
             reader = csv.DictReader(cache_file)
             for row in reader:
-                print(f"{row['date']}|{row['open']}|{row['high']}|{row['low']}|{row['close']}|{row['volume']}|{row['Name']}")
+                print(
+                    f"{row['date']}|{row['open']}|{row['high']}|{row['low']}|{row['close']}|{row['volume']}|{row['Name']}")
             cache_file.close()
 
     else:
@@ -27,7 +44,8 @@ def select_sorted(sort_columns="high", limit=30, group_by_name=False, order='des
         writer.writeheader()
         for row in top10:
             writer.writerow(row)
-            print(f"{row['date']}|{row['open']}|{row['high']}|{row['low']}|{row['close']}|{row['volume']}|{row['Name']}")
+            print(
+                f"{row['date']}|{row['open']}|{row['high']}|{row['low']}|{row['close']}|{row['volume']}|{row['Name']}")
 
             """Запись в файл"""
 
@@ -35,19 +53,4 @@ def select_sorted(sort_columns="high", limit=30, group_by_name=False, order='des
             writer.writerow(i)
         f.close()
         file_.close()
-
-
-print(select_sorted(sort_columns="high", limit=8, group_by_name=False, order='desc', filename='dump4.csv'))
-
-print(select_sorted(sort_columns="high", limit=10, group_by_name=False, order='desc', filename='dump4.csv'))
-
-print(select_sorted(sort_columns="high", limit=8, group_by_name=False, order='desc', filename='dump4.csv'))
-print(select_sorted(sort_columns="high", limit=8, group_by_name=False, order='desc', filename='dump4.csv'))
-print(select_sorted(sort_columns="high", limit=8, group_by_name=False, order='desc', filename='dump4.csv'))
-print(select_sorted(sort_columns="high", limit=8, group_by_name=False, order='desc', filename='dump4.csv'))
-
-print(select_sorted(sort_columns="high", limit=20, group_by_name=False, order='desc', filename='dump4.csv'))
-
-
-
 
