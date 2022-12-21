@@ -39,6 +39,9 @@ def select_sorted(sort_columns="high", limit=30, group_by_name=False, order='des
         file_ = open(f_n, "w", encoding="utf-8", newline="")
         writer = csv.DictWriter(file_, fieldnames=list(top10[0].keys()), delimiter=",", quoting=csv.QUOTE_NONE)
         writer.writeheader()
+        for i in top10:
+            writer.writerow(i)
+
         f = open(f'cache/{cache_name}.csv', "w", encoding="utf-8", newline="")
         writer = csv.DictWriter(f, fieldnames=list(top10[0].keys()), delimiter=",", quoting=csv.QUOTE_NONE)
         writer.writeheader()
@@ -49,8 +52,8 @@ def select_sorted(sort_columns="high", limit=30, group_by_name=False, order='des
 
             """Запись в файл"""
 
-        for i in top10:
-            writer.writerow(i)
+
         f.close()
         file_.close()
 
+get_sorted()
